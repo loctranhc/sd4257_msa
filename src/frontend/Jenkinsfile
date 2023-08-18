@@ -5,7 +5,8 @@ pipeline {
         stage('Build Image') {
             steps {
                 script{
-                    sh 'ls'
+                    sh 'cd /src/fontend'
+                    sh 'docker build . -t frontend'
                 }
             }
         }
