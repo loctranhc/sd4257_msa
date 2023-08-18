@@ -2,17 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Image') {
             steps {
-                echo 'Building..'
+                script{
+                    sh 'ls'
+                }
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
+        stage('Push Image to ACR') {
             steps {
                 echo 'Deploying....'
             }
