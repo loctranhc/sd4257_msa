@@ -9,7 +9,7 @@ steps:
   - task: CmdLine@2
     displayName: Docker Build
     inputs:
-      script: 'docker build -f src/backend -t backend:$(Build.BuildNumber)'
+      script: 'docker build -f src/backend -t backend:$(Build.BuildNumber) .'
   - task: CmdLine@2
     displayName: Docker Tag
     inputs:
