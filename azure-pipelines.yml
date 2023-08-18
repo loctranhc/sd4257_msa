@@ -1,0 +1,29 @@
+trigger:
+- master
+
+pool:
+  name: Dev01
+  vmImage: az-dev01
+
+steps:
+  - task: CmdLine@2
+    displayName: Docker Build
+    inputs:
+      script: 'docker build -t backend:$(Build.BuildNumber) .'
+      workingDirectory: 'src/backend'
+  - task: CmdLine@2
+    displayName: Docker Tag
+    inputs:
+      script: 'docker tag backend:$(Build.BuildNumber) acrloctranhc.azurecr.io/backend:$(Build.BuildNumber)'
+  - task: CmdLine@2
+    displayName: Docker Login
+    inputs:
+      script: 'docker login acrloctranhc.azurecr.io -u $(DockerUser) -p $(DockerPassword)'
+  - task: CmdLine@2
+    displayName: Docker Push
+    inputs:
+      script: 'docker push acrloctranhc.azurecr.io/backend:$(Build.BuildNumber)'
+  - task: CmdLine@2
+    displayName: Clean Image
+    inputs:
+      script: 'docker image prune -a -f'
