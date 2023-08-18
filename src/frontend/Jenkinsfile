@@ -1,11 +1,14 @@
 pipeline {
     agent any
+    triggers {
+        githubPush()
+    }
 
     stages {
         stage('Build Image') {
             steps {
                 script{
-                    sh 'ls'
+                    sh 'cd /src/'
                     sh 'docker build . -t frontend'
                 }
             }
