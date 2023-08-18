@@ -7,5 +7,11 @@ pool:
 
 steps:
   - task: CmdLine@2
+    displayName: Docker Build
     inputs:
-      script: 'ls'
+      script: 'docker build -f src/backend -t backend:$(Build.BuildNumber)'
+  - task: CmdLine@2
+    displayName: Docker Tag
+    inputs:
+      script: 'docker tag backend:$(Build.BuildNumber) acrloctranhc.azurecr.io/backend:$(Build.BuildNumber)'
+  
