@@ -4,9 +4,8 @@ pipeline {
         stage('Build Image') {
             steps {
                 dir('src/frontend'){
-                    sh 'ls'
-                }
-                sh 'docker build -f /src/frontend -t fontend .'
+                    sh 'docker build -t fontend .'
+                }     
             }
         }
         stage('Push Image to ACR') {
