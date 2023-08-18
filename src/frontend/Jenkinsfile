@@ -1,18 +1,21 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build Image') {
-            steps {
-                dir('src/frontend'){
-                    sh "docker build -t frontend:${BUILD_NUMBER} ."
-                    sh 'docker tag frontend:${BUILD_NUMBER} acrloctranhc.azurecr.io/frontend'
-                }     
-            }
+  agent any
+  stages {
+    stage('Build Image') {
+      steps {
+        dir('src/frontend') {
+          sh "docker build -t frontend:${BUILD_NUMBER} ."
+          sh 'docker tag frontend:${BUILD_NUMBER} acrloctranhc.azurecr.io/frontend:${BUILD_NUMBER}'
         }
-        stage('Push Image to ACR') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+      }
     }
+    stage('Push Image to ACR') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login acrloctranhc.azurecr.io -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh 'docker push acrloctranhc.azurecr.io/frontend:${BUILD_NUMBER}'
+        }
+      }
+    }
+  }
 }
