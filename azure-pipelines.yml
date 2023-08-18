@@ -9,10 +9,6 @@ steps:
   - task: CmdLine@2
     displayName: Docker Build
     inputs:
-      script: 'ls'
-  - task: CmdLine@2
-    displayName: Docker Build
-    inputs:
       script: 'docker build -t backend:$(Build.BuildNumber) .'
       workingDirectory: 'src/backend'
   - task: CmdLine@2
