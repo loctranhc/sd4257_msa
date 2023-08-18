@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build Image') {
             steps {
-                dir('src'){
+                dir('src/frontend'){
                     sh 'ls'
                 }
                 sh 'docker build -f /src/frontend -t fontend .'
