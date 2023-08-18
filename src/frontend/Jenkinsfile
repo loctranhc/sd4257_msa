@@ -4,7 +4,8 @@ pipeline {
         stage('Build Image') {
             steps {
                 dir('src/frontend'){
-                    sh 'docker build -t fontend .'
+                    sh "docker build -t frontend:${BUILD_NUMBER} ."
+                    sh 'docker tag frontend:${BUILD_NUMBER} acrloctranhc.azurecr.io/frontend'
                 }     
             }
         }
