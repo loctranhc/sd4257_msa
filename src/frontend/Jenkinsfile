@@ -24,23 +24,8 @@ pipeline {
     }
     stage('Replace File') {
       steps {
-        contentReplace(
-          configs: [
-            fileContentReplaceConfig(
-              configs: [
-                fileContentReplaceItemConfig(
-                  search: 'frontend-image',
-                  replace: 'acrloctranhc.azurecr.io/frontend:${BUILD_NUMBER}',
-                  matchCount: 1,
-                  verbose: false,
-                )
-              ],
-              fileEncoding: 'UTF-8',
-              lineSeparator: 'Unix',
-              filePath: 'frontend.yaml'
-            )
-          ]
-        )
+        sh "sed -i -e 's/registry/acrloctranhc.azurecr.io/' frontend.yaml"
+        sh "sed -i -e 's/image-name/frontend:${BUILD_NUMBER}/' frontend.yaml"
       }
     }
     stage('Deploy') {

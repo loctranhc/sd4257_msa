@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: frontend-image
+          image: registry/image-name
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
