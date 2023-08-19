@@ -28,8 +28,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: hnguyencanh/frontend:latest
+          image: frontend-image
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
-

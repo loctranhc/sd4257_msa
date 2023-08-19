@@ -22,5 +22,31 @@ pipeline {
         sh 'docker image prune -a -f'
       }
     }
+    stage('Replace File') {
+      steps {
+        contentReplace(
+          configs: [
+            fileContentReplaceConfig(
+              configs: [
+                fileContentReplaceItemConfig(
+                  search: 'frontend-image',
+                  replace: 'acrloctranhc.azurecr.io/frontend:${BUILD_NUMBER}',
+                  matchCount: 1,
+                  verbose: false,
+                )
+              ],
+              fileEncoding: 'UTF-8',
+              lineSeparator: 'Unix',
+              filePath: 'frontend.yaml'
+            )
+          ]
+        )
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'kubectl apply -f frontend.yaml'
+      }
+    }
   }
 }
