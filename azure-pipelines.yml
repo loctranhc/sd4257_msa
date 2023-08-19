@@ -27,10 +27,11 @@ steps:
     displayName: Clean Image
     inputs:
       script: 'docker image prune -a -f'
-  - task: CmdLine@2
-    displayName: Replace Build
+  - task: CopyFiles@2
     inputs:
-      script: 'sed -i -e ''s/registry/acrloctranhc.azurecr.io/'' backend.yaml && sed -i -e ''s/image-name/backend:$(Build.BuildNumber)/'' backend.yaml'
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
