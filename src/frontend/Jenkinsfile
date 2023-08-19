@@ -26,6 +26,7 @@ pipeline {
       steps {
         sh "sed -i -e 's/registry/acrloctranhc.azurecr.io/' frontend.yaml"
         sh "sed -i -e 's/image-name/frontend:${BUILD_NUMBER}/' frontend.yaml"
+        sh "cat frontend.yaml"
       }
     }
     stage('Deploy') {
