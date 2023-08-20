@@ -29,9 +29,9 @@ pipeline {
         sh "cat frontend.yaml"
       }
     }
-    stage('Deploy') {
+    stage('Archive Artifacts') {
       steps {
-        sh 'kubectl apply -f frontend.yaml'
+        archiveArtifacts artifacts: 'target/release/frontend.yaml', fingerprint: true
       }
     }
   }
