@@ -32,7 +32,7 @@ pipeline {
     stage('Archive Artifacts') {
       steps {
         sh 'ls'
-        archiveArtifacts artifacts: '**/frontend.yml', fingerprint: true
+        archiveArtifacts artifacts: '*.yml', fingerprint: true
       }
     }
   }
