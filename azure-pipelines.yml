@@ -2,8 +2,7 @@ trigger:
 - master
 
 pool:
-  name: Dev01
-  vmImage: az-dev01
+  name: Default
 
 steps:
   - task: CmdLine@2
