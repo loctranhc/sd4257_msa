@@ -14,7 +14,7 @@ steps:
   - task: CmdLine@2
     displayName: Docker Tag
     inputs:
-      script: 'docker tag backend:$(Build.BuildNumber)'
+      script: 'docker tag backend:$(Build.BuildNumber) $(ACR_ENDPOINT)/backend:$(Build.BuildNumber)'
   - task: CmdLine@2
     displayName: Trivy Scan
     inputs:
