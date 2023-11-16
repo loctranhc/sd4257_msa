@@ -18,7 +18,16 @@ steps:
   - task: CmdLine@2
     displayName: Trivy Scan
     inputs:
-      script: 'trivy image $(ACR_ENDPOINT)/backend:$(Build.BuildNumber)'
+      script: 'trivy image --format template --template "~/templates/junit.tpl" -o trivy-scan-report.xml $(ACR_ENDPOINT)/backend:$(Build.BuildNumber)'
+  - task: PublishTestResults@2
+    displayName: Publish Trivy Scan
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/trivy-scan-report.xml'
+      mergeTestResults: true
+      failTaskOnFailedTests: false
+      testRunTitle: 'Trivy Scan Report'
+    condition: 'always()'   
   - task: CmdLine@2
     displayName: Docker Login
     inputs:
